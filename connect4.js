@@ -109,7 +109,6 @@ function handleClick(evt) {
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
-
 function checkForWin() {
 	function _win(cells) {
 		// Check four cells to see if they're all color of current player
@@ -119,35 +118,37 @@ function checkForWin() {
 		return cells.every(([y, x]) => y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH && board[y][x] === currPlayer);
 	}
 
-	// TODO: read and understand this code. Add comments to help you.
-
 	for (let y = 0; y < HEIGHT; y++) {
 		for (let x = 0; x < WIDTH; x++) {
+			// Checks for horizontal win
 			const horiz = [
 				[y, x],
 				[y, x + 1],
 				[y, x + 2],
 				[y, x + 3]
 			];
+			// Checks for a vertical win
 			const vert = [
 				[y, x],
 				[y + 1, x],
 				[y + 2, x],
 				[y + 3, x]
 			];
+			// Checks for a diagonal right win
 			const diagDR = [
 				[y, x],
 				[y + 1, x + 1],
 				[y + 2, x + 2],
 				[y + 3, x + 3]
 			];
+			// Checks for a diagonal left win
 			const diagDL = [
 				[y, x],
 				[y + 1, x - 1],
 				[y + 2, x - 2],
 				[y + 3, x - 3]
 			];
-
+			// If any win occurs return true
 			if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
 				return true;
 			}

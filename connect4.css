@@ -13,6 +13,17 @@
 	width: 80%;
 	height: 80%;
 	clip-path: circle();
+	animation-name: fall-animation;
+	animation-duration: 800ms;
+}
+
+@keyframes fall-animation {
+	from {
+		transform: translateY(-300px);
+	}
+	to {
+		transform: translateY(0);
+	}
 }
 
 .p1 {
