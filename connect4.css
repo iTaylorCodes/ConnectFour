@@ -4,6 +4,7 @@
 	width: 50px;
 	height: 50px;
 	border: solid 1px #666;
+	background-color: whitesmoke;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
@@ -12,7 +13,7 @@
 	margin: 5px;
 	width: 80%;
 	height: 80%;
-	clip-path: circle();
+	border-radius: 50%;
 	animation-name: fall-animation;
 	animation-duration: 800ms;
 }
@@ -40,6 +41,19 @@
 	border: dashed 1px lightgray;
 }
 
-#column-top td:hover {
+/* #column-top td:hover {
 	background-color: gold;
+} */
+
+h1 {
+	text-align: center;
+}
+
+body {
+	background-color: rgb(255, 217, 0);
+}
+
+#board {
+	overflow: hidden;
+	margin: auto;
 }

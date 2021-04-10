@@ -38,7 +38,7 @@ function makeHtmlBoard() {
 	}
 	htmlBoard.append(top);
 
-	// Creates rows and blocks for the gameboard and give each block a unique ID based on location
+	// Creates rows and cells for the gameboard and give each cell a unique ID based on location
 	for (let y = 0; y < HEIGHT; y++) {
 		const row = document.createElement('tr');
 		for (let x = 0; x < WIDTH; x++) {
@@ -158,3 +158,17 @@ function checkForWin() {
 
 makeBoard();
 makeHtmlBoard();
+
+// Changes the column top to show which players turn it is
+
+const columnTop = Array.from(document.querySelectorAll('#column-top td'));
+for (let top of columnTop) {
+	top.addEventListener('mousemove', hoverPiece);
+	top.addEventListener('mouseleave', function (e) {
+		e.target.style.backgroundColor = 'white';
+	});
+}
+
+function hoverPiece(e) {
+	e.target.style.backgroundColor = currPlayer === 1 ? 'red' : 'blue';
+}
