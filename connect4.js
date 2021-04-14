@@ -63,8 +63,7 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
 	const cell = document.getElementById(`${y}-${x}`);
 	const piece = document.createElement('div');
-	if (currPlayer === 1) piece.className = 'piece p1';
-	if (currPlayer === 2) piece.className = 'piece p2';
+	piece.className = currPlayer === 1 ? 'piece p1' : 'piece p2';
 	cell.appendChild(piece);
 }
 
