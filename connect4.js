@@ -16,16 +16,14 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 function makeBoard() {
 	for (let y = 0; y < HEIGHT; y++) {
-		board.push([]);
-		for (let x = 0; x < WIDTH; x++) {
-			board[y].push(null);
-		}
+		board.push(Array.from({ length: WIDTH }));
 	}
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 function makeHtmlBoard() {
 	const htmlBoard = document.querySelector('#board');
+
 	// Creates each column top and gives them a click event
 	const top = document.createElement('tr');
 	top.setAttribute('id', 'column-top');
@@ -44,7 +42,6 @@ function makeHtmlBoard() {
 		for (let x = 0; x < WIDTH; x++) {
 			const cell = document.createElement('td');
 			cell.setAttribute('id', `${y}-${x}`);
-			cell.setAttribute('class', 'boardCell');
 			row.append(cell);
 		}
 		htmlBoard.append(row);
@@ -97,15 +94,12 @@ function handleClick(evt) {
 	}
 
 	// check for tie
-	const cells = Array.from(document.getElementsByClassName('boardCell'));
-	if (cells.every((val) => val.childElementCount === 1)) {
+	if (board.every((row) => row.every((cell) => cell))) {
 		return endGame('Tie Game!');
 	}
 
 	// switch players
-	if (currPlayer === 1) {
-		currPlayer = 2;
-	} else currPlayer = 1;
+	currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
