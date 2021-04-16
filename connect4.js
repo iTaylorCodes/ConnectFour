@@ -5,11 +5,13 @@
  * board fills (tie)
  */
 
-let WIDTH = 7;
-let HEIGHT = 6;
+const WIDTH = 7;
+const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
+
+let gameIsRunning = true;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -51,8 +53,7 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 function findSpotForCol(x) {
 	for (let y = HEIGHT - 1; y >= 0; y--) {
-		const cell = document.getElementById(`${y}-${x}`);
-		if (cell.childElementCount === 0) {
+		if (!board[y][x]) {
 			return y;
 		}
 	}
@@ -63,19 +64,25 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
 	const cell = document.getElementById(`${y}-${x}`);
 	const piece = document.createElement('div');
-	piece.className = currPlayer === 1 ? 'piece p1' : 'piece p2';
+	piece.className = `piece p${currPlayer}`;
 	cell.appendChild(piece);
 }
 
 /** endGame: announce game end */
 function endGame(msg) {
-	alert(msg);
+	gameIsRunning = false;
+	setTimeout(() => {
+		alert(msg);
+	}, 100);
 }
 
 /** handleClick: handle click of column top to play piece */
 function handleClick(evt) {
+	if (gameIsRunning === false) {
+		return;
+	}
 	// get x from ID of clicked cell
-	let x = +evt.target.id;
+	const x = +evt.target.id;
 
 	// get next spot in column (if none, ignore click)
 	const y = findSpotForCol(x);
@@ -99,6 +106,8 @@ function handleClick(evt) {
 
 	// switch players
 	currPlayer = currPlayer === 1 ? 2 : 1;
+
+	evt.target.style.backgroundColor = 'white';
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -156,12 +165,10 @@ makeHtmlBoard();
 
 const columnTop = Array.from(document.querySelectorAll('#column-top td'));
 for (let top of columnTop) {
-	top.addEventListener('mousemove', hoverPiece);
+	top.addEventListener('mousemove', function (e) {
+		e.target.style.backgroundColor = currPlayer === 1 ? 'red' : 'blue';
+	});
 	top.addEventListener('mouseleave', function (e) {
 		e.target.style.backgroundColor = 'white';
 	});
-}
-
-function hoverPiece(e) {
-	e.target.style.backgroundColor = currPlayer === 1 ? 'red' : 'blue';
 }

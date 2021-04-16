@@ -5,6 +5,7 @@
 	height: 50px;
 	border: solid 1px #666;
 	background-color: whitesmoke;
+	border-radius: 50%;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
@@ -40,10 +41,6 @@
 #column-top td {
 	border: dashed 1px lightgray;
 }
-
-/* #column-top td:hover {
-	background-color: gold;
-} */
 
 h1 {
 	text-align: center;
