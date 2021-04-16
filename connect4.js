@@ -107,6 +107,7 @@ function handleClick(evt) {
 	// switch players
 	currPlayer = currPlayer === 1 ? 2 : 1;
 
+	// returns the column-top to white
 	evt.target.style.backgroundColor = 'white';
 }
 
